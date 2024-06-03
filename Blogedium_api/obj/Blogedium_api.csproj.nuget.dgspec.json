@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj": {}
+    "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj": {}
   },
   "projects": {
-    "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj": {
+    "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+        "projectUniqueName": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
         "projectName": "Blogedium_api",
-        "projectPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+        "projectPath": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
         "packagesPath": "C:\\Users\\kappal\\.nuget\\packages\\",
-        "outputPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\obj\\",
+        "outputPath": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kappal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -41,6 +41,26 @@
           "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.4, )"
             },
