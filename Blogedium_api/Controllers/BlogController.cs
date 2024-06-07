@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace Blogedium_api.Controllers
 {
-    public class BlogController
+    [ApiController]
+    public class BlogController : ControllerBase
     {
         
     }
