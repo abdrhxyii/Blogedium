@@ -4,7 +4,6 @@ namespace Blogedium_api.Modals
 {
     public class CommentModal
     {
-        [Required]
         [Key]
         public int Id {get; set;}
         [Required]

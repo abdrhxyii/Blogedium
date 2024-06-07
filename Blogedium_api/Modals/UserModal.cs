@@ -4,7 +4,6 @@ namespace Blogedium_api.Modals
 {
     public class UserModal
     {
-        [Required]
         [Key]
         public int Id {get; set;}
         
