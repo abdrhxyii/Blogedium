@@ -5,20 +5,25 @@ namespace Blogedium_api.Modals
     public class UserModal
     {
         [Key]
-        public int Id {get; set;}
+        public int Id { get; set; }
         
-        [Required(ErrorMessage = "Eamil address is required")]
+        [Required(ErrorMessage = "Email address is required")]
         [EmailAddress]
-        public string EmailAddress {get; set;}
+        public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        public string Password {get; set;}
-        public UserRole Role {get; set;} = UserRole.User;
+        public string Password { get; set; }
 
-        public UserModal(int id, string emailaddress, string password, UserRole role)
+        public UserRole Role { get; set; } = UserRole.User; // Default role set to User
+
+        // Empty constructor required by EF Core for migrations and queries
+        public UserModal() {}
+
+        // Constructor for initializing properties
+        public UserModal(int id, string emailAddress, string password, UserRole role)
         {
             Id = id;
-            EmailAddress = emailaddress;
+            EmailAddress = emailAddress;
             Password = password;
             Role = role;
         }

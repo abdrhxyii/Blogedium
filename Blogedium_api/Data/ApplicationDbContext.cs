@@ -16,9 +16,10 @@ namespace Blogedium_api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<>
-
+            modelBuilder.Entity<CommentModal>()
+            .HasOne(c => c.Blog)
+            .WithMany(b => b.Comments)
+            .HasForeignKey(a => a.BlogId);
         }
-
     }
 }

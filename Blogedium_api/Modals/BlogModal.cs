@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Blogedium_api.Modals
@@ -5,23 +6,23 @@ namespace Blogedium_api.Modals
     public class BlogModal
     {
         [Key]
-        public int Id {get; set;}
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please upload an Image")]
-        public string Image {get; set;}
+        public string Image { get; set; }
 
         [Required(ErrorMessage = "Enter the title")]
-        public string Title {get; set;}
+        public string Title { get; set; }
 
         [Required(ErrorMessage = "Enter a comment")]
-        public string Content {get; set;}
+        public string Content { get; set; }
 
-        public BlogModal(int id , string image, string title, string content)
+        // Navigation property for comments
+        public ICollection<CommentModal> Comments { get; set; }
+
+        public BlogModal()
         {
-            Id = id;
-            Image = image;
-            Title = title;
-            Content = content;
+            Comments = new List<CommentModal>();
         }
     }
 }
