@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blogedium_api.Modals
 {
@@ -18,14 +19,5 @@ namespace Blogedium_api.Modals
 
         // Empty constructor required by EF Core for migrations and queries
         public UserModal() {}
-
-        // Constructor for initializing properties
-        public UserModal(int id, string emailAddress, string password, UserRole role)
-        {
-            Id = id;
-            EmailAddress = emailAddress;
-            Password = password;
-            Role = role;
-        }
     }
 }

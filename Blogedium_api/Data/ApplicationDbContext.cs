@@ -16,6 +16,12 @@ namespace Blogedium_api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // base.OnModelCreating(modelBuilder);
+
+            // modelBuilder.Entity<UserModal>()
+            // .HasIndex(u => u.EmailAddress)
+            // .IsUnique();
+
             modelBuilder.Entity<CommentModal>()
             .HasOne(c => c.Blog)
             .WithMany(b => b.Comments)

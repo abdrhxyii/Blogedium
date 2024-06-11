@@ -3884,21 +3884,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+      "projectUniqueName": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
       "projectName": "Blogedium_api",
-      "projectPath": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+      "projectPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
       "packagesPath": "C:\\Users\\kappal\\.nuget\\packages\\",
-      "outputPath": "d:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\obj\\",
+      "outputPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kappal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\kappal\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
