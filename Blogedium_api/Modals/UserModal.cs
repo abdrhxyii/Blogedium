@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blogedium_api.Modals
@@ -15,6 +16,7 @@ namespace Blogedium_api.Modals
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRole Role { get; set; } = UserRole.User; // Default role set to User
 
         // Empty constructor required by EF Core for migrations and queries

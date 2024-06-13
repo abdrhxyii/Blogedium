@@ -51,8 +51,12 @@ namespace Blogedium_api.Controllers
             {
                 return NotFound("User Not Found");
             }
-            return Ok();
 
+            if (user.Password != usermodal.Password)
+            {
+                return BadRequest("Incorrect Password");
+            }
+            return Ok();
         }
 
         [HttpGet("profile")]
