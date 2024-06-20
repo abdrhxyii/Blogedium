@@ -12,7 +12,7 @@ namespace Blogedium_api.Modals
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter your last name")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } 
 
         [Required(ErrorMessage = "Please enter your comment")]
         public string CommentContent { get; set; }

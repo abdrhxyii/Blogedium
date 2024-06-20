@@ -10,9 +10,13 @@ namespace Blogedium_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;  
-        public UserController(ApplicationDbContext context)
+        private readonly IConfiguration _configuration;
+        public UserController(
+            ApplicationDbContext context, 
+            IConfiguration configuaryion)
         {
             _context = context;
+            _configuration = configuaryion;
         }
 
         [HttpPost("register")]
@@ -114,5 +118,10 @@ namespace Blogedium_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        // private string GeneratrJWTToken (UserModal usermodal)
+        // {
+
+        // }
     }
 }
