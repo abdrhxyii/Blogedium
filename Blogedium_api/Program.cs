@@ -9,11 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 var configuration = builder.Configuration;
+
+// db connection configurations
 var connectionString = builder.Configuration.GetConnectionString("DefaultValue");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(connectionString));
 
+// jwt configuration
 builder.Services.AddAuthentication(cfg => {
     cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

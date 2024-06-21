@@ -10,28 +10,29 @@ namespace Blogedium_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;  
-        public UserController(ApplicationDbContext context)
+        private readonly IConfiguration _configuration;
+        private readonly IUserRepository _user_repository;
+
+        public UserController(ApplicationDbContext context, IConfiguration configuaryion, IUserRepository user_repository)
         {
             _context = context;
+            _configuration = configuaryion;
+            _user_repository = user_repository;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserModal>> Registration(UserModal newuser)
+        public async Task<ActionResult<UserModal>> Registration( UserModal newuser)
         {
-            try{
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == newuser.EmailAddress);
-                if (user != null)
-                {
-                    return BadRequest("User Already Exist, Please signin to continue");
-                }
-                else 
-                {
-                    _context.Users.Add(newuser);
-                    await _context.SaveChangesAsync();
-                    return CreatedAtAction(nameof(GetUserByID), new { id = newuser.Id }, newuser);
-                }
+            try
+            {
+                var user = await _user_repository.CreateUser(newuser);
+                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user)
             } 
-            catch (Exception error)
+            catch(ArgumentException ex)
+            {
+                return BadRequest("User Already Exist, Please login to continue")
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(error);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error occured while registerring");
@@ -41,33 +42,41 @@ namespace Blogedium_api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserModal>> LoginUser (UserModal usermodal)
         {
-            if (usermodal == null || string.IsNullOrEmpty(usermodal.EmailAddress))
+            try
             {
-                return BadRequest("Please enter valid data");
+                var user = await _user_repository.LoginUser(usermodal)
+                return Ok(usermodal);
             }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == usermodal.EmailAddress);
-            if (user == null)
+            catch (ArgumentException ex)
             {
-                return NotFound("User Not Found");
+                return BadRequest(ex)
             }
-
-            if (user.Password != usermodal.Password)
+            catch (InvalidOperationException ex)
             {
-                return BadRequest("Incorrect Password");
+                return BadRequest (ex)
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpGet("profile")]
         public async Task<ActionResult<UserModal>> GetUserByID (int Id)
         {
-            var user = await _context.Users.FindAsync(Id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _user_repository.FindUser(id);
+                return user;
             }
-            return user;
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -114,5 +123,10 @@ namespace Blogedium_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        // private string GeneratrJWTToken (UserModal usermodal)
+        // {
+
+        // }
     }
 }
