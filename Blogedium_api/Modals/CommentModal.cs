@@ -9,16 +9,17 @@ namespace Blogedium_api.Modals
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please enter your last name")]
-        public string LastName { get; set; } 
+        public string LastName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please enter your comment")]
-        public string CommentContent { get; set; }
+        public string CommentContent { get; set; } = string.Empty;
 
         public int BlogId { get; set; }
 
+        // navgation propety
         [ForeignKey("BlogId")]
         public BlogModal Blog { get; set; }
     }
