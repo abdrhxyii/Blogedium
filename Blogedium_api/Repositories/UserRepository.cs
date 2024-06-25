@@ -14,23 +14,16 @@ namespace Blogedium_api.Repositories
             _context = context;
         }
 
+        public async Task<UserModal?> FindUserByEmailAddress (string emaildddress)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == emaildddress);
+        }
+
         public async Task<UserModal> CreateUser (UserModal userModal)
         {
-            try
-            {
-                var existinguser = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == userModal.EmailAddress);
-                if (existinguser != null)
-                {
-                    throw new ArgumentException("User Already Exist");
-                }
-                _context.Users.Add(userModal);
-                await _context.SaveChangesAsync();
-                return userModal;       
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred while registering user.", ex);
-            }
+            _context.Users.Add(userModal);
+            await _context.SaveChangesAsync();
+            return userModal;       
         }
 
         public async Task<UserModal> LoginUser (UserModal userModal)

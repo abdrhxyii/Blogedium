@@ -9,5 +9,6 @@ namespace Blogedium_api.Interfaces
         Task<UserModal> FindUser (int id);
         Task<UserModal> DeleteUser (int id);
         Task<IEnumerable<UserModal>> GetAllUsers ();
+        Task<UserModal?> FindUserByEmailAddress (string emaildddress);
     }
 }

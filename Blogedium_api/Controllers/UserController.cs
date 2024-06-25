@@ -21,23 +21,18 @@ namespace Blogedium_api.Controllers
             _user_repository = user_repository;
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<UserModal>> Registration( UserModal newuser)
-        {
-            try
-            {
-                var user = await _user_repository.CreateUser(newuser);
-                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
-            } 
-            catch(ArgumentException)
-            {
-                return BadRequest("User Already Exist, Please login to continue");
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error occured while registerring");
-            }
-        }
+        // [HttpPost("register")]
+        // public async Task<ActionResult<UserModal>> Registration( UserModal newuser)
+        // {
+        //     try
+        //     {
+        //         var existingUser = await _user_repository.
+        //     }
+        //     catch ( Exception ex)
+        //     {
+
+        //     }
+        // }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserModal>> LoginUser (UserModal usermodal)
