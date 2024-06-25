@@ -1,4 +1,5 @@
 using Blogedium_api.Data;
+using Blogedium_api.Interfaces;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,15 +27,14 @@ namespace Blogedium_api.Controllers
             try
             {
                 var user = await _user_repository.CreateUser(newuser);
-                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user)
+                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
             } 
-            catch(ArgumentException ex)
+            catch(ArgumentException)
             {
-                return BadRequest("User Already Exist, Please login to continue")
+                return BadRequest("User Already Exist, Please login to continue");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(error);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error occured while registerring");
             }
         }
@@ -44,29 +44,29 @@ namespace Blogedium_api.Controllers
         {
             try
             {
-                var user = await _user_repository.LoginUser(usermodal)
+                var user = await _user_repository.LoginUser(usermodal);
                 return Ok(usermodal);
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex)
+                return BadRequest(ex);
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest (ex)
+                return BadRequest (ex);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
-        [HttpGet("profile")]
+        [HttpGet("profile/{id}")]
         public async Task<ActionResult<UserModal>> GetUserByID (int Id)
         {
             try
             {
-                var user = await _user_repository.FindUser(id);
+                var user = await _user_repository.FindUser(Id);
                 return user;
             }
             catch (InvalidOperationException ex)
@@ -84,38 +84,30 @@ namespace Blogedium_api.Controllers
         {
             try
             {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    return NotFound("User not Found");
-                } 
-                else 
-                {
-                    _context.Users.Remove(user);
-                    await _context.SaveChangesAsync();
-                    return StatusCode(StatusCodes.Status204NoContent);
-                }
+                var user = await _user_repository.DeleteUser(id);
+                return NoContent();
+            }
+            catch ( ArgumentException ex)
+            {
+                return NotFound(ex);
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<ActionResult<IEnumerable<UserModal>>> GetAllUsers ()
         {
             try
             {
-                var users = await _context.Users.ToListAsync(); // ToListAsync -> if there is nothing then this will return an empty list 
-                if (users.Count == 0)
-                {
-                    return NotFound("No users found");
-                } else
-                {
-                    return Ok(users);
-                }
+                var users = await _user_repository.GetAllUsers(); // ToListAsync -> if there is nothing then this will return an empty list 
+                return Ok(users);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex);
             }
             catch (Exception ex)
             {
