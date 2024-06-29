@@ -10,11 +10,12 @@ namespace Blogedium_api.Modals
         [Key]
         public int Id { get; set; }
         
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string EmailAddress { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
+        [MinLength(8, ErrorMessage = "Password should atleast contain 8 characters")]
         public string Password { get; set; }
 
         [EnumDataType(typeof(UserRole))]

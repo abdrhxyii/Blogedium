@@ -14,7 +14,7 @@ namespace Blogedium_api.Modals
         [Required(ErrorMessage = "Enter the title")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Enter a comment")]
+        [Required(ErrorMessage = "Enter a content")]
         public string Content { get; set; }
 
         // Navigation property for comments

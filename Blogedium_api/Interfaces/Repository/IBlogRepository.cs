@@ -4,9 +4,11 @@ namespace Blogedium_api.Interfaces.Repository
 {
     public interface IBlogRepository
     {
-        Task<UserModal> CreateBlog (BlogModal blogModal);
-        Task<IEnumerable<UserModal>> GetAll (BlogModal blogModal);
-        Task<UserModal> GetBlog (int id);
-        Task<UserModal> DeleteBlog (int id); 
+        Task<BlogModal> CreateBlog (BlogModal blogModal);
+        Task<IEnumerable<BlogModal>> GetAll ();
+        Task<BlogModal?> GetBlog (int id);
+        Task<BlogModal> DeleteBlog (int id); 
+        Task<BlogModal> UpdateBlog (int id, BlogModal blogModal);
+        Task<BlogModal> FindById (int id);
     }
 }
