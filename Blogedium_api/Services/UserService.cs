@@ -1,6 +1,8 @@
 using Blogedium_api.Modals;
 using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Interfaces.Repository;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Blogedium_api.Services
 {
@@ -18,6 +20,12 @@ namespace Blogedium_api.Services
             var existinguser = await _userRepository.FindUserByEmailAddress(userModal.EmailAddress); // null / not null
             if (existinguser == null){
                 return await _userRepository.CreateUser(userModal);
+            }
+            if (string.IsNullOrWhiteSpace(userModal.EmailAddress)){
+                throw new ArgumentException("Email address is required");
+            }
+            if (string.IsNullOrWhiteSpace(userModal.Password)){
+                throw new ArgumentException("Password is required");
             }
             throw new ArgumentException("User Already Exist, Please signin to continue");
         }
@@ -42,5 +50,17 @@ namespace Blogedium_api.Services
         {
             return await _userRepository.FindUserByEmailAddress(emaildddress);
         }
+
+        private static string getHash(string password)  
+        {
+            // SHA512 is disposable by inheritance.  
+            using(var sha256 = SHA256.Create())  
+            {  
+                // Send a sample text to hash.  
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));  
+                // Get the hashed string.  
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();  
+            }  
+        } 
     }
 }

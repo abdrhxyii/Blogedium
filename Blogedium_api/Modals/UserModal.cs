@@ -10,11 +10,11 @@ namespace Blogedium_api.Modals
         [Key]
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "Email address is required")]
+        [Required]
         [EmailAddress]
         public string EmailAddress { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
+        [Required]
         public string Password { get; set; }
 
         [EnumDataType(typeof(UserRole))]

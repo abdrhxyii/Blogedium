@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Blogedium_api.Interfaces.Repository;
 using Blogedium_api.Repositories;
+using Blogedium_api.Interfaces.Services;
+using Blogedium_api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +44,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-// builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
