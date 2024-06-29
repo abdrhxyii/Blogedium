@@ -1,5 +1,4 @@
 using Blogedium_api.Data;
-using Blogedium_api.Interfaces;
 using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +24,8 @@ namespace Blogedium_api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
+                if (!ModelState.IsValid){
+                    return BadRequest();
                 }
                 var user = await _userService.CreateUserAsync(newuser);
                 return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
@@ -47,17 +45,20 @@ namespace Blogedium_api.Controllers
         {
             try
             {
-                var existinguser = await _userService.FindUserByEmailAddressAsync(userModal.EmailAddress); // not null
-                if (existinguser != null)
-                {
-                    return Ok();
+                var user = await _userService.FindUserAsync(userModal.Id);
+                if (user?.EmailAddress != userModal.EmailAddress){
+                    return BadRequest("User Does Not Exist, Please Register to Continue");
                 }
-                return BadRequest("User Does Not Exist, Please Register to Continue");
+
+                if (user?.EmailAddress != userModal.EmailAddress){
+                    return BadRequest("Incorrect password");
+                }
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
+            return Ok();
         }
  
         [HttpGet("profile/{id}")]
