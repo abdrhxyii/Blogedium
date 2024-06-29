@@ -16,7 +16,6 @@ namespace Blogedium_api.Modals
 
         [Required(ErrorMessage = "Please enter your comment")]
         public string CommentContent { get; set; } = string.Empty;
-
         public int BlogId { get; set; }
 
         // navgation propety

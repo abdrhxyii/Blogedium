@@ -1,72 +1,49 @@
 using Blogedium_api.Modals;
 using Blogedium_api.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Blogedium_api.Interfaces.Repository;
 
 namespace Blogedium_api.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-
         public UserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<UserModal> CreateUser (UserModal usermodal)
+        public async Task<UserModal?> FindUserByEmailAddress (string emaildddress)
         {
-            try
-            {
-                var existinguser = await _context.User.FirstOrDefaultAsync(u => u.EmailAddress == usermodal.EmailAddress);
-                if (existinguser != null)
-                {
-                    throw new ArgumentException("User Already Exist")
-                }
-                _context.UserModal.Add(usermodal);
+            return await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == emaildddress);
+        }
+
+        public async Task<UserModal> CreateUser (UserModal userModal)
+        {
+            _context.Users.Add(userModal);
+            await _context.SaveChangesAsync();
+            return userModal;       
+        }
+
+        public async Task<UserModal?> FindUser (int id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<UserModal> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user != null){
+                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-                return usermodal;       
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred while registering user.", ex);
-            }
+            return user;
         }
 
-        public async Task<UserModal> LoginUser (UserModal usermodal)
+        public async Task<IEnumerable<UserModal>> GetAllUsers ()
         {
-            try
-            {
-                var user = await _context.User.FirstOrDefaultAsync(u => u.EmailAddress == usermodal.EmailAddress);
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User Not Found");
-                }
-                if (user.Password != usermodal.Password)
-                {
-                    throw new ArgumentException("Incorrect password")
-                }
-                return user
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Error occurred while login", ex)
-            }
-        }
-
-        public async Task<UserModal> FindUser (int id)
-        {
-            try
-            {
-                var user = await _context.User.FindAsync(id);
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User Not Found")
-                }
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred when retrieving the user", ex)
-            }
+            return await _context.Users.ToListAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Blogedium_api.Modals;
 
 namespace Blogedium_api.Modals
 {
@@ -16,6 +17,7 @@ namespace Blogedium_api.Modals
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
+        [EnumDataType(typeof(UserRole))]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRole Role { get; set; } = UserRole.User; // Default role set to User
 

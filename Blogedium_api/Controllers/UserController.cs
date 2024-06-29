@@ -1,4 +1,6 @@
 using Blogedium_api.Data;
+using Blogedium_api.Interfaces;
+using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,70 +12,67 @@ namespace Blogedium_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;  
-        private readonly IConfiguration _configuration;
-        private readonly IUserRepository _user_repository;
+        private readonly IUserService _userService;
 
-        public UserController(ApplicationDbContext context, IConfiguration configuaryion, IUserRepository user_repository)
+        public UserController(ApplicationDbContext context, IUserService userService)
         {
             _context = context;
-            _configuration = configuaryion;
-            _user_repository = user_repository;
+            _userService = userService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserModal>> Registration( UserModal newuser)
+        public async Task<ActionResult<UserModal>> CreateUser( UserModal newuser)
         {
             try
             {
-                var user = await _user_repository.CreateUser(newuser);
-                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user)
-            } 
-            catch(ArgumentException ex)
-            {
-                return BadRequest("User Already Exist, Please login to continue")
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var user = await _userService.CreateUserAsync(newuser);
+                return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
-                Console.WriteLine(error);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error occured while registerring");
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+            catch ( Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserModal>> LoginUser (UserModal usermodal)
+        public async Task<ActionResult<UserModal>> LoginUser (UserModal userModal)
         {
             try
             {
-                var user = await _user_repository.LoginUser(usermodal)
-                return Ok(usermodal);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex)
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest (ex)
+                var existinguser = await _userService.FindUserByEmailAddressAsync(userModal.EmailAddress); // not null
+                if (existinguser != null)
+                {
+                    return Ok();
+                }
+                return BadRequest("User Does Not Exist, Please Register to Continue");
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
-
-        [HttpGet("profile")]
-        public async Task<ActionResult<UserModal>> GetUserByID (int Id)
+ 
+        [HttpGet("profile/{id}")]
+        public async Task<ActionResult<UserModal>> GetUserByID (int id)
         {
             try
             {
-                var user = await _user_repository.FindUser(id);
-                return user;
+                var user = await _userService.FindUserAsync(id); // not null
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                return NotFound("User Not Found");
             }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex);
-            }
-            catch(Exception ex)
+            catch ( Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
@@ -82,51 +81,30 @@ namespace Blogedium_api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<UserModal>> DeleteUser (int id)
         {
-            try
+            var result = await _userService.DeleteUserAsync(id);
+            if (!result)
             {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    return NotFound("User not Found");
-                } 
-                else 
-                {
-                    _context.Users.Remove(user);
-                    await _context.SaveChangesAsync();
-                    return StatusCode(StatusCodes.Status204NoContent);
-                }
+                return NotFound("User Not Found");
             }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<ActionResult<IEnumerable<UserModal>>> GetAllUsers ()
         {
-            try
+            try 
             {
-                var users = await _context.Users.ToListAsync(); // ToListAsync -> if there is nothing then this will return an empty list 
-                if (users.Count == 0)
+                var users = await _userService.GetAllUsersAsync(); // 
+                if (users == null)
                 {
-                    return NotFound("No users found");
-                } else
-                {
-                    return Ok(users);
+                    return NotFound();
                 }
+                return Ok(users);
             }
-            catch (Exception ex)
+            catch ( Exception ex)
             {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }
-
-        // private string GeneratrJWTToken (UserModal usermodal)
-        // {
-
-        // }
     }
 }
