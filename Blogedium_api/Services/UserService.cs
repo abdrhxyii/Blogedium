@@ -21,12 +21,6 @@ namespace Blogedium_api.Services
             if (existinguser == null){
                 return await _userRepository.CreateUser(userModal);
             }
-            if (string.IsNullOrWhiteSpace(userModal.EmailAddress)){
-                throw new ArgumentException("Email address is required");
-            }
-            if (string.IsNullOrWhiteSpace(userModal.Password)){
-                throw new ArgumentException("Password is required");
-            }
             throw new ArgumentException("User Already Exist, Please signin to continue");
         }
 

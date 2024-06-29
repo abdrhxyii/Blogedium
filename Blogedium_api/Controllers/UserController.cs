@@ -2,7 +2,6 @@ using Blogedium_api.Data;
 using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Blogedium_api.Controllers
 {
@@ -12,7 +11,6 @@ namespace Blogedium_api.Controllers
     {
         private readonly ApplicationDbContext _context;  
         private readonly IUserService _userService;
-
         public UserController(ApplicationDbContext context, IUserService userService)
         {
             _context = context;
@@ -24,15 +22,8 @@ namespace Blogedium_api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid){
-                    return BadRequest();
-                }
                 var user = await _userService.CreateUserAsync(newuser);
                 return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
-            }
-            catch (ArgumentException ex)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
             catch ( Exception ex)
             {
@@ -43,22 +34,28 @@ namespace Blogedium_api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserModal>> LoginUser (UserModal userModal)
         {
+            if (!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
             try
             {
-                var user = await _userService.FindUserAsync(userModal.Id);
-                if (user?.EmailAddress != userModal.EmailAddress){
+                var user = await _userService.FindUserByEmailAddressAsync(userModal.EmailAddress); // null
+
+                if (user == null)
+                {
                     return BadRequest("User Does Not Exist, Please Register to Continue");
                 }
 
-                if (user?.EmailAddress != userModal.EmailAddress){
-                    return BadRequest("Incorrect password");
+                if (userModal.Password != user.Password)
+                {
+                    return BadRequest("Incorrect Password");
                 }
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
-            return Ok();
         }
  
         [HttpGet("profile/{id}")]
