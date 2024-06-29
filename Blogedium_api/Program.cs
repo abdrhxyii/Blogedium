@@ -3,7 +3,7 @@ using Blogedium_api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Blogedium_api.Interfaces;
+using Blogedium_api.Interfaces.Repository;
 using Blogedium_api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,7 +42,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+// builder.Services.AddScoped<IUserRepository, UserRepository>();
 // builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();

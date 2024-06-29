@@ -1,8 +1,8 @@
 using Blogedium_api.Modals;
 using Blogedium_api.Data;
-using Blogedium_api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Blogedium_api.Interfaces.Repository;
 
 namespace Blogedium_api.Repositories
 {
@@ -26,82 +26,24 @@ namespace Blogedium_api.Repositories
             return userModal;       
         }
 
-        public async Task<UserModal> LoginUser (UserModal userModal)
+        public async Task<UserModal?> FindUser (int id)
         {
-            try
-            {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == userModal.EmailAddress);
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User Not Found");
-                }
-                if (user.Password != userModal.Password)
-                {
-                    throw new ArgumentException("Incorrect password");
-                }
-                return user;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Error occurred while login", ex);
-            }
-        }
-
-        public async Task<UserModal> FindUser (int id)
-        {
-            try
-            {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    throw new InvalidOperationException("User Not Found");
-                }
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred when retrieving the user", ex);
-            }
+            return await _context.Users.FindAsync(id);
         }
 
         public async Task<UserModal> DeleteUser(int id)
         {
-            try
-            {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    throw new ArgumentException("User does not exist");
-                }
-                else 
-                {
-                    _context.Users.Remove(user);
-                    await _context.SaveChangesAsync();
-                    return user;
-                }
+            var user = await _context.Users.FindAsync(id);
+            if (user != null){
+                 _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred while deleting the user", ex);
-            }
-
+            return user;
         }
 
         public async Task<IEnumerable<UserModal>> GetAllUsers ()
         {
-            try
-            {
-                var users = await _context.Users.ToListAsync();
-                if (users.Count == 0)
-                {
-                    throw new InvalidOperationException("User not found");
-                }
-                return users;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred while retrieving the users", ex);
-            }
+            return await _context.Users.ToListAsync();
         }
     }
 }

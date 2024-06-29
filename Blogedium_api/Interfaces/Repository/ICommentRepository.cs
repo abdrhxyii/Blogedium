@@ -1,4 +1,4 @@
-namespace Blogedium_api.Interfaces
+namespace Blogedium_api.Interfaces.Repository
 {
     public interface ICommentRepository
     {
