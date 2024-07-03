@@ -13,10 +13,12 @@ namespace Blogedium_api.Services
         {
             _blogRepository = blogRepository;
         }
+
         public async Task<BlogModal> CreateBlogAsync(BlogModal blogModal)
         {
             return await _blogRepository.CreateBlog(blogModal);
         }
+
         public async Task<BlogModal> DeleteBlogAsync(int id)
         {
             var blogs = await _blogRepository.FindById(id);
@@ -24,8 +26,9 @@ namespace Blogedium_api.Services
             {
                 return await _blogRepository.DeleteBlog(id);
             }
-            throw new NotFoundException($"Blog with '{id}' not found");
+            throw new NotFoundException($"Blog with ID'{id}' not found");
         }
+        
         public async Task<IEnumerable<BlogModal>> GetAllAsync()
         {
             return await _blogRepository.GetAll();

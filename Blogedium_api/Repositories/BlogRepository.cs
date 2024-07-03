@@ -41,7 +41,10 @@ namespace Blogedium_api.Repositories
             var blog = await _context.Blogs.FindAsync(id);
             if (blog != null)
             {
-                _context.Entry(blogModal).State = EntityState.Modified;
+                blog.Image = blogModal.Image;
+                blog.Title = blogModal.Title;
+                blog.Content = blogModal.Content;
+                await _context.SaveChangesAsync();
             }
             return blog;
         }

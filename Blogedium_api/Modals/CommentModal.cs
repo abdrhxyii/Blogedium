@@ -20,6 +20,6 @@ namespace Blogedium_api.Modals
 
         // navgation propety
         [ForeignKey("BlogId")]
-        public BlogModal Blog { get; set; }
+        public BlogModal blogModal { get; set; }
     }
 }

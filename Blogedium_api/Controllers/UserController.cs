@@ -9,11 +9,9 @@ namespace Blogedium_api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;  
         private readonly IUserService _userService;
-        public UserController(ApplicationDbContext context, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _context = context;
             _userService = userService;
         }
 
