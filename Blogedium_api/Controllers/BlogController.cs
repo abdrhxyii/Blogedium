@@ -1,4 +1,5 @@
 using Blogedium_api.Data;
+using Blogedium_api.Exceptions;
 using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
@@ -37,9 +38,14 @@ namespace Blogedium_api.Controllers
                 var user = await _blogService.GetBlogAsync(id);
                 return Ok(user);
             }
+            catch ( NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -65,9 +71,31 @@ namespace Blogedium_api.Controllers
                 var user = await _blogService.DeleteBlogAsync(id);
                 return NoContent();
             }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BlogModal>> UpdateBlog (int id, BlogModal blogModal)
+        {
+            try
+            {
+                var user = await _blogService.UpdateBlogAsync(id, blogModal);
+                return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }

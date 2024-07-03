@@ -24,7 +24,7 @@ namespace Blogedium_api.Services
             {
                 return await _blogRepository.DeleteBlog(id);
             }
-            throw new NotFoundException($"Blog with '{id}' not found");
+            throw new NotFoundException($"Blog with ID'{id}' not found");
         }
         public async Task<IEnumerable<BlogModal>> GetAllAsync()
         {
