@@ -15,6 +15,7 @@ namespace Blogedium_api.Controllers
             _blogService = blogService;
         }
 
+        [HttpPost("")]
         public async Task<ActionResult<BlogModal>> CreateBlog(BlogModal blogModal)
         {
             try
@@ -28,6 +29,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [HttpGet("{id}")]
         public async Task<ActionResult<BlogModal>> GetBlogById (int id)
         {
             try 
@@ -41,6 +43,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [HttpGet("")]
         public async Task<ActionResult<IEnumerable<BlogModal>>> GetAllBlogs ()
         {
             try
@@ -54,6 +57,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
         public async Task<ActionResult<BlogModal>> DeleteBlog (int id)
         {
             try
