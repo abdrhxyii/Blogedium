@@ -24,6 +24,10 @@ namespace Blogedium_api.Controllers
                 var blog = await _blogService.CreateBlogAsync(blogModal);
                 return CreatedAtAction(nameof(GetBlogById), new {id = blogModal.Id}, blog);
             }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);

@@ -16,6 +16,18 @@ namespace Blogedium_api.Services
 
         public async Task<BlogModal> CreateBlogAsync(BlogModal blogModal)
         {
+            if (string.IsNullOrWhiteSpace(blogModal.Image))
+            {
+                throw new ArgumentException("Please upload an image");
+            }
+            if (string.IsNullOrWhiteSpace(blogModal.Title))
+            {
+                throw new ArgumentException("Please enter the title");
+            }
+            if (string.IsNullOrWhiteSpace(blogModal.Content))
+            {
+                throw new ArgumentException("Please enter the content");
+            }
             return await _blogRepository.CreateBlog(blogModal);
         }
 
