@@ -15,11 +15,12 @@ namespace Blogedium_api.Controllers
             _commentService = commentService;
         }
 
-        [HttpPost("")]
+        [HttpPost("{id}")]
         public async Task<ActionResult<CommentModal>> CreateComment (int id, CommentModal commentModal)
         {
             try
             {
+                commentModal.BlogId = id;
                 var comment = await _commentService.CreateCommentAsync(id, commentModal);
                 return CreatedAtAction(nameof(GetCommentByID), new {id = commentModal.Id}, comment);
             }
