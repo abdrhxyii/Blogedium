@@ -45,5 +45,14 @@ namespace Blogedium_api.Services
             throw new NotFoundException($"The comment '{id}' does not exist to update");
         }
 
+        public Task<CommentModal> GetCommentByIDAsync (int id)
+        {
+            var comment = _commentRepository.FindComment(id);
+            if (comment != null)
+            {
+                return comment;
+            }
+            throw new NotFoundException($"The comment '{id}' does not exist to retrieve");
+        }
     }
 }
