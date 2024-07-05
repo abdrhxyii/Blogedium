@@ -8,5 +8,6 @@ namespace Blogedium_api.Interfaces.Services
         Task<CommentModal> CreateCommentAsync (int blogId, CommentModal commentModal);
         Task<CommentModal> DeleteCommentAsync (int id);
         Task<CommentModal> UpdateCommentAsync (int id, CommentModal commentModal);
+        Task<CommentModal> GetCommentByIDAsync (int id);
     }
 }
