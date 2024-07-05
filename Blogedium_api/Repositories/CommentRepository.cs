@@ -17,7 +17,7 @@ namespace Blogedium_api.Repositories
             await _context.SaveChangesAsync();
             return commentModal;
         }
-        public async Task<CommentModal> DeleteComment(int id)
+        public async Task<CommentModal?> DeleteComment(int id)
         {
             var comment = await _context.Comments.FindAsync(id); /// if 
             if (comment != null)
@@ -27,7 +27,7 @@ namespace Blogedium_api.Repositories
             }
             return comment;
         }
-        public async Task<CommentModal> UpdateComment(int id, CommentModal commentModal)
+        public async Task<CommentModal?> UpdateComment(int id, CommentModal commentModal)
         {
             var comment = await _context.Comments.FindAsync(id); // not
             if ( comment != null)
@@ -39,7 +39,7 @@ namespace Blogedium_api.Repositories
             }
             return comment;
         }
-        public async Task<CommentModal> FindComment (int id)
+        public async Task<CommentModal?> FindComment (int id)
         {
             var comment = await _context.Comments.FindAsync(id);
             return comment;

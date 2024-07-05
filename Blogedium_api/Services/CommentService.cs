@@ -22,10 +22,22 @@ namespace Blogedium_api.Services
                 commentModal.BlogId = blogId;
                 return await _commentRepository.CreateComment(blogId, commentModal);
             }
+            if (string.IsNullOrWhiteSpace(commentModal.FirstName))
+            {
+                throw new ArgumentException("Please enter the firstname");
+            }
+            if (string.IsNullOrWhiteSpace(commentModal.LastName))
+            {
+                throw new ArgumentException("Please enter the firstname");
+            }
+            if (string.IsNullOrWhiteSpace(commentModal.CommentContent))
+            {
+                throw new ArgumentException("Please enter the Comment");      
+            }
             throw new NotFoundException($"The provided BlogId '{blogId}' does not exist");
         }
 
-        public async Task<CommentModal> DeleteCommentAsync(int id)
+        public async Task<CommentModal?> DeleteCommentAsync(int id)
         {
             var comment = await _commentRepository.FindComment(id); 
             if (comment != null)
@@ -35,7 +47,7 @@ namespace Blogedium_api.Services
             throw new NotFoundException($"The comment '{id}' does not exist");
         }
 
-        public Task<CommentModal> UpdateCommentAsync(int id, CommentModal commentModal)
+        public Task<CommentModal?> UpdateCommentAsync(int id, CommentModal commentModal)
         {
             var comment = _commentRepository.FindComment(id);
             if (comment != null)
@@ -45,7 +57,7 @@ namespace Blogedium_api.Services
             throw new NotFoundException($"The comment '{id}' does not exist to update");
         }
 
-        public Task<CommentModal> GetCommentByIDAsync (int id)
+        public Task<CommentModal?> GetCommentByIDAsync (int id)
         {
             var comment = _commentRepository.FindComment(id);
             if (comment != null)

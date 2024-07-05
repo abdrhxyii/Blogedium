@@ -27,6 +27,10 @@ namespace Blogedium_api.Controllers
             {
                 return NotFound(ex.Message);
             }
+            catch ( ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);

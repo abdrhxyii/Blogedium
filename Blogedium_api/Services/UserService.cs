@@ -21,7 +21,7 @@ namespace Blogedium_api.Services
             if (existinguser == null){
                 return await _userRepository.CreateUser(userModal);
             }
-            throw new ArgumentException("User Already Exist, Please signin to continue");
+            throw new InvalidOperationException("User Already Exist, Please signin to continue");
         }
 
         public async Task<UserModal?> FindUserAsync (int id)

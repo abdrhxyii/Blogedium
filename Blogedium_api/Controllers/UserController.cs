@@ -23,6 +23,10 @@ namespace Blogedium_api.Controllers
                 var user = await _userService.CreateUserAsync(newuser);
                 return CreatedAtAction(nameof(GetUserByID), new {id = user.Id}, user);
             }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
             catch ( Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
