@@ -3884,11 +3884,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+      "projectUniqueName": "D:\\IT projects\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
       "projectName": "Blogedium_api",
-      "projectPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+      "projectPath": "D:\\IT projects\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
       "packagesPath": "C:\\Users\\kappal\\.nuget\\packages\\",
-      "outputPath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\obj\\",
+      "outputPath": "D:\\IT projects\\Blogedium\\Blogedium_api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kappal\\AppData\\Roaming\\NuGet\\NuGet.Config"
