@@ -23,7 +23,7 @@ namespace Blogedium_api.Data
             .HasConversion<string>();
 
             modelBuilder.Entity<CommentModal>()
-            .HasOne(c => c.blog)
+            .HasOne(c => c.Blog)
             .WithMany(b => b.Comments)
             .HasForeignKey(a => a.BlogId);
 

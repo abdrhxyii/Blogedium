@@ -19,8 +19,12 @@ namespace Blogedium_api.Services
             var blog = await _blogRepository.FindById(blogId);
             if (blog != null)
             {
-                commentModal.BlogId = blogId;
+                commentModal.Blog = blog;
                 return await _commentRepository.CreateComment(blogId, commentModal);
+            }
+            if (commentModal == null)
+            {
+                throw new ArgumentException("Please fill the necessary fields");
             }
             if (string.IsNullOrWhiteSpace(commentModal.FirstName))
             {
