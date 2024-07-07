@@ -1,10 +1,10 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="sm:w-full sm:max-w-md relative -top-32">
       <h2 class="mt-6 text-center text-3xl md:text-3xl font-extrabold text-gray-900 sm:text-xm">
-        Sign in to your account
+        {{ isLogin ? 'Sign in to your account' : 'Hi, Create your account' }}
       </h2>
   
-      <form class="mt-8 space-y-6">
+      <form class="mt-8 space-y-6" (submit)="handleSubmit()">
         <div>
           <input
             name="email"
@@ -32,18 +32,18 @@
             type="submit"
             class="w-full bg-black text-white py-2 px-4 rounded-md focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700"
           >
-            Sign in
+            {{ isLogin ? 'Sign in' : 'Create' }}
           </button>
         </div>
       </form>
   
       <p class="mt-4 text-center text-sm text-gray-600">
-        Don't have an account?
+        {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
         <a
           class="font-semibold text-black cursor-pointer"
-          (click)="handleSignup()"
+          (click)="toggleSignupLogin()"
         >
-          Create an account
+          {{ isLogin ? 'Create an account' : 'Sign in to your account' }}
         </a>
       </p>
     </div>
