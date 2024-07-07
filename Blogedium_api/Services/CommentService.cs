@@ -36,19 +36,19 @@ namespace Blogedium_api.Services
             throw new NotFoundException($"The comment '{id}' does not exist");
         }
 
-        public Task<CommentModal?> UpdateCommentAsync(int id, CommentModal commentModal)
+        public async Task<CommentModal?> UpdateCommentAsync(int id, CommentModal commentModal)
         {
-            var comment = _commentRepository.FindComment(id);
+            var comment = await _commentRepository.FindComment(id);
             if (comment != null)
             {
-                return _commentRepository.UpdateComment(id, commentModal);
+                return await _commentRepository.UpdateComment(id, commentModal);
             }
             throw new NotFoundException($"The comment '{id}' does not exist to update");
         }
 
-        public Task<CommentModal?> GetCommentByIDAsync (int id)
+        public async Task<CommentModal?> GetCommentByIDAsync (int id)
         {
-            var comment = _commentRepository.FindComment(id);
+            var comment = await _commentRepository.FindComment(id);
             if (comment != null)
             {
                 return comment;
