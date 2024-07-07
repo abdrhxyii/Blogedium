@@ -15,26 +15,21 @@ namespace Blogedium_api.Controllers
             _commentService = commentService;
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<CommentModal>> CreateComment (int id, CommentModal commentModal)
+        [HttpPost("{blogId}")]
+        public async Task<ActionResult<CommentModal>> CreateComment (int blogId, CommentModal commentModal)
         {
             try
             {
-                commentModal.BlogId = id;
-                var comment = await _commentService.CreateCommentAsync(id, commentModal);
-                return CreatedAtAction(nameof(GetCommentByID), new {id = commentModal.Id}, comment);
+                var createdComment = await _commentService.CreateCommentAsync(blogId, commentModal);
+                return CreatedAtAction(nameof(GetCommentByID), new { id = createdComment.Id }, createdComment);
             }
-            catch (NotFoundException ex)
+            catch(NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch ( ArgumentException ex)
+            catch (Exception)
             {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                return StatusCode(500, "Internal server error");
             }
         }
 

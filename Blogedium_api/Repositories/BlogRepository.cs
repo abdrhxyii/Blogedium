@@ -26,7 +26,7 @@ namespace Blogedium_api.Repositories
         {
             return await _context.Blogs.FindAsync(id);
         }
-        public async Task<BlogModal> DeleteBlog (int id)
+        public async Task<BlogModal?> DeleteBlog (int id)
         {
             var blog = await _context.Blogs.FindAsync(id); 
             if (blog != null)
@@ -36,7 +36,7 @@ namespace Blogedium_api.Repositories
             }
             return blog;
         }
-        public async Task<BlogModal> UpdateBlog (int id, BlogModal blogModal)
+        public async Task<BlogModal?> UpdateBlog (int id, BlogModal blogModal)
         {
             var blog = await _context.Blogs.FindAsync(id);
             if (blog != null)
@@ -48,7 +48,7 @@ namespace Blogedium_api.Repositories
             }
             return blog;
         }
-        public async Task<BlogModal> FindById (int id)
+        public async Task<BlogModal?> FindById (int id)
         {
             var blog = await _context.Blogs.FindAsync(id);
             return blog;

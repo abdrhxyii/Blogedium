@@ -11,7 +11,7 @@ namespace Blogedium_api.Repositories
         {
             _context = context;
         }
-        public async Task<CommentModal> CreateComment(int blogId, CommentModal commentModal)
+        public async Task<CommentModal> CreateComment(CommentModal commentModal)
         {
             await _context.Comments.AddAsync(commentModal);
             await _context.SaveChangesAsync();
