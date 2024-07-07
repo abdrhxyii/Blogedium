@@ -26,7 +26,6 @@ namespace Blogedium_api.Data
             .HasOne(c => c.Blog)
             .WithMany(b => b.Comments)
             .HasForeignKey(a => a.BlogId);
-
         }
     }
 }

@@ -17,28 +17,13 @@ namespace Blogedium_api.Services
         public async Task<CommentModal> CreateCommentAsync(int blogId, CommentModal commentModal)
         {
             var blog = await _blogRepository.FindById(blogId);
-            if (blog != null)
+            if (blog == null)
             {
-                commentModal.Blog = blog;
-                return await _commentRepository.CreateComment(blogId, commentModal);
+                throw new NotFoundException($"The Blog with ID '{blogId}' does not exist");
             }
-            if (commentModal == null)
-            {
-                throw new ArgumentException("Please fill the necessary fields");
-            }
-            if (string.IsNullOrWhiteSpace(commentModal.FirstName))
-            {
-                throw new ArgumentException("Please enter the firstname");
-            }
-            if (string.IsNullOrWhiteSpace(commentModal.LastName))
-            {
-                throw new ArgumentException("Please enter the firstname");
-            }
-            if (string.IsNullOrWhiteSpace(commentModal.CommentContent))
-            {
-                throw new ArgumentException("Please enter the Comment");      
-            }
-            throw new NotFoundException($"The provided BlogId '{blogId}' does not exist");
+            commentModal.BlogId = blogId;
+            await _commentRepository.CreateComment(commentModal);
+            return commentModal;
         }
 
         public async Task<CommentModal?> DeleteCommentAsync(int id)

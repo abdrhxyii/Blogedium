@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MAk5JTrQ9gaxhclOqBmm+qn5m5dX8GAhiM786R926dPemwCM38QHQharnZT2SbmVJAiQYxN9se3lhKKArIbA2w==",
+  "dgSpecHash": "lVyVb0KNkl6uBkORjRIuCAKbCCoElgmWYwWnQrbNa1+LkcH6ELUKN0pOa9g9RvfAETS3ikz0yYYLaA64EurNqw==",
   "success": true,
-  "projectFilePath": "D:\\IT projects\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
+  "projectFilePath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kappal\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\kappal\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
