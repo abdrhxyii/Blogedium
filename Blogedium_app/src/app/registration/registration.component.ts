@@ -9,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
 
+  isLogin: boolean = false;
+
+  handleSignup(){
+    console.log("clicked")
+  }
+
 }
