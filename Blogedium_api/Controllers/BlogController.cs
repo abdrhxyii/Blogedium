@@ -16,6 +16,7 @@ namespace Blogedium_api.Controllers
             _blogService = blogService;
         }
 
+        [Authorize]
         [HttpPost("")]
         public async Task<ActionResult<BlogModal>> CreateBlog(BlogModal blogModal)
         {
