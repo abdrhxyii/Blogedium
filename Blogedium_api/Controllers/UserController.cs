@@ -15,9 +15,12 @@ namespace Blogedium_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IConfiguration _configuration;
+
+        public UserController(IUserService userService, IConfiguration configuration)
         {
             _userService = userService;
+            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -57,7 +60,8 @@ namespace Blogedium_api.Controllers
                 {
                     return BadRequest("Incorrect Password");
                 }
-                return Ok();
+                var token = GenerateJwtToken(user);
+                return Ok(new { token });
             }
             catch (Exception ex)
             {
@@ -121,14 +125,14 @@ namespace Blogedium_api.Controllers
                 new Claim(ClaimTypes.Role, userModal.Role.ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: Configuration["Jwt:Issuer"],
-                audience: Configuration["Jwt:Audience"],
+                issuer: _configuration["JWT:Issuer"],
+                audience: _configuration["JWT:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(Configuration["Jwt:ExpireMinutes"])),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JWT:ExpireMinutes"])),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
