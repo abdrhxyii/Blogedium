@@ -27,21 +27,31 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // jwt configuration
 builder.Services.AddAuthentication(options =>
 {
+    // Without these lines, the application wouldn't know how to handle 
+    // authentication requests or challenges, leading to failed authentication attempts
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
+    // options.TokenValidationParameters -> Specifies the parameters for validating the JWT token.
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+        ValidateIssuer = true, //  Ensures that the token's issuer matches the expected issuer.
+        ValidateAudience = true, //  Ensures that the token's audience matches the expected audience.
+        ValidateLifetime = true, // Ensures that the token has not expired and is still valid.
+        ValidateIssuerSigningKey = true, //  Ensures that the token's signing key matches the expected signing key.
+        ValidIssuer = builder.Configuration["JWT:Issuer"], // Specifies the expected issuer of the token (retrieved from configuration).
+        ValidAudience = builder.Configuration["JWT:Audience"], //  Specifies the expected audience of the token (retrieved from configuration).
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])) // Specifies the key used to sign the token, which must match the signing key used to generate the token.
     };
 });
+
+// ValidateIssuer: Without this, any issuer could be accepted, compromising security.
+// ValidateAudience: Without this, any audience could be accepted, potentially allowing tokens intended for different services.
+// ValidateLifetime: Without this, expired tokens could still be accepted, compromising security.
+// ValidateIssuerSigningKey: Without this, any key could be used to validate the token, compromising security.
+// ValidIssuer and ValidAudience: These ensure that the token is issued by a trusted authority and intended for this application.
+// IssuerSigningKey: Ensures that the token is validated with the correct secret key. Without it, token validation would fail.
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -118,6 +118,8 @@ namespace Blogedium_api.Controllers
 
         private string GenerateJwtToken(UserModal userModal)
         {
+            // Without claims, the token wouldn't carry user-specific
+            // information required for authentication and authorization.
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userModal.EmailAddress),
@@ -125,9 +127,12 @@ namespace Blogedium_api.Controllers
                 new Claim(ClaimTypes.Role, userModal.Role.ToString())
             };
 
+            // Without a signing key and credentials, the token cannot be securely signed, making it invalid.
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+            
+            // This step generates the actual token that includes 
+            // all the necessary information and is signed for security.
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
@@ -135,7 +140,7 @@ namespace Blogedium_api.Controllers
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JWT:ExpireMinutes"])),
                 signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token); // Converts the token into a string format that can be sent to the client.
         }
     }
 }
