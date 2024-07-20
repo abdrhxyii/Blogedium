@@ -3,6 +3,7 @@ using Blogedium_api.Exceptions;
 using Blogedium_api.Interfaces.Services;
 using Blogedium_api.Modals;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blogedium_api.Controllers
 {
@@ -11,12 +12,14 @@ namespace Blogedium_api.Controllers
     public class BlogController : ControllerBase
     {
         private readonly IBlogService _blogService;
+        
         public BlogController(IBlogService blogService)
         {
             _blogService = blogService;
         }
 
-        [Authorize]
+        // [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost("")]
         public async Task<ActionResult<BlogModal>> CreateBlog(BlogModal blogModal)
         {
