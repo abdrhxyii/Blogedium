@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lVyVb0KNkl6uBkORjRIuCAKbCCoElgmWYwWnQrbNa1+LkcH6ELUKN0pOa9g9RvfAETS3ikz0yYYLaA64EurNqw==",
+  "dgSpecHash": "E3KOjWQJMsswJ1sGndrS1AnBq4EOVkcG81EbcNClUUKlbj57M9z04Af/WKKd23MUIHArvIueba72ZtC1p6sIhw==",
   "success": true,
   "projectFilePath": "D:\\IT projects\\Freelance\\Blogedium\\Blogedium_api\\Blogedium_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kappal\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\kappal\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\kappal\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\kappal\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\kappal\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.4\\microsoft.aspnetcore.authentication.jwtbearer.7.0.4.nupkg.sha512",
     "C:\\Users\\kappal\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",

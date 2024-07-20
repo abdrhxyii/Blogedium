@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using BCrypt.Net;
 
 namespace Blogedium_api.Controllers
 {
@@ -56,7 +57,9 @@ namespace Blogedium_api.Controllers
                     return BadRequest("User Does Not Exist, Please Register to Continue");
                 }
 
-                if (userModal.Password != user.Password)
+                var verifiedPassword = BCrypt.Net.BCrypt.Verify(userModal.Password, user.Password);
+
+                if (verifiedPassword != true)
                 {
                     return BadRequest("Incorrect Password");
                 }
