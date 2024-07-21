@@ -1,88 +1,14 @@
 <div class="m-3 mt-20 md:mt-16">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-  <div class="max-w-sm rounded overflow-hidden shadow-md bg-white mb-4">
-    <img class="w-full" src="../../assets/dotnet.png" alt="Blog post image">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Blog Post Title</div>
-      <p class="text-gray-700 text-base">
-        This is a short description of the blog post. It provides an overview of the content.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span class="text-gray-600 text-sm">Feb 30, 2024</span>
-      <div class="flex items-center justify-between mt-2">
-        <span class="text-gray-600 text-sm">123 Reads</span>
-        <span class="text-gray-600 text-sm">45 Comments</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-sm rounded overflow-hidden shadow-md bg-white mb-4">
-    <img class="w-full" src="../../assets/dotnet.png" alt="Blog post image">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Blog Post Title</div>
-      <p class="text-gray-700 text-base">
-        This is a short description of the blog post. It provides an overview of the content.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span class="text-gray-600 text-sm">Feb 30, 2024</span>
-      <div class="flex items-center justify-between mt-2">
-        <span class="text-gray-600 text-sm">123 Reads</span>
-        <span class="text-gray-600 text-sm">45 Comments</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-sm rounded overflow-hidden shadow-md bg-white mb-4">
-    <img class="w-full" src="../../assets/dotnet.png" alt="Blog post image">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Blog Post Title</div>
-      <p class="text-gray-700 text-base">
-        This is a short description of the blog post. It provides an overview of the content.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span class="text-gray-600 text-sm">Feb 30, 2024</span>
-      <div class="flex items-center justify-between mt-2">
-        <span class="text-gray-600 text-sm">123 Reads</span>
-        <span class="text-gray-600 text-sm">45 Comments</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-sm rounded overflow-hidden shadow-md bg-white mb-4">
-    <img class="w-full" src="../../assets/dotnet.png" alt="Blog post image">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Blog Post Title</div>
-      <p class="text-gray-700 text-base">
-        This is a short description of the blog post. It provides an overview of the content.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span class="text-gray-600 text-sm">Feb 30, 2024</span>
-      <div class="flex items-center justify-between mt-2">
-        <span class="text-gray-600 text-sm">123 Reads</span>
-        <span class="text-gray-600 text-sm">45 Comments</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="max-w-sm rounded overflow-hidden shadow-md bg-white mb-4">
-    <img class="w-full" src="../../assets/dotnet.png" alt="Blog post image">
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Blog Post Title</div>
-      <p class="text-gray-700 text-base">
-        This is a short description of the blog post. It provides an overview of the content.
-      </p>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <span class="text-gray-600 text-sm">Feb 30, 2024</span>
-      <div class="flex items-center justify-between mt-2">
-        <span class="text-gray-600 text-sm">123 Reads</span>
-        <span class="text-gray-600 text-sm">45 Comments</span>
-      </div>
-    </div>
-  </div>
-</div>
+  @for (blog of blogPosts; track blog.id) {
+    <app-blog 
+      [title]="blog.title" 
+      [imageUrl]="blog.imageUrl" 
+      [description]="blog.description" 
+      [reads]="blog.reads" 
+      [comments]="blog.comments"
+      [date]="blog.date"
+      >
+    </app-blog>
+  }
 </div>
