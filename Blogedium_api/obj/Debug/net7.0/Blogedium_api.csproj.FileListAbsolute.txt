@@ -152,3 +152,4 @@ D:\IT projects\Blogedium\Blogedium_api\obj\Debug\net7.0\refint\Blogedium_api.dll
 D:\IT projects\Blogedium\Blogedium_api\obj\Debug\net7.0\Blogedium_api.pdb
 D:\IT projects\Blogedium\Blogedium_api\obj\Debug\net7.0\Blogedium_api.genruntimeconfig.cache
 D:\IT projects\Blogedium\Blogedium_api\obj\Debug\net7.0\ref\Blogedium_api.dll
+D:\IT projects\Freelance\Blogedium\Blogedium_api\bin\Debug\net7.0\BCrypt.Net-Next.dll

@@ -1,8 +1,10 @@
 using Blogedium_api.Modals;
 using Blogedium_api.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Blogedium_api.Interfaces.Repository;
+using System.Security.Cryptography;
+using System.Text;
+using BCrypt.Net;
 
 namespace Blogedium_api.Repositories
 {
@@ -21,6 +23,7 @@ namespace Blogedium_api.Repositories
 
         public async Task<UserModal> CreateUser (UserModal userModal)
         {
+            userModal.Password = BCrypt.Net.BCrypt.HashPassword(userModal.Password);
             _context.Users.Add(userModal);
             await _context.SaveChangesAsync();
             return userModal;       
@@ -44,6 +47,6 @@ namespace Blogedium_api.Repositories
         public async Task<IEnumerable<UserModal>> GetAllUsers ()
         {
             return await _context.Users.ToListAsync();
-        }
+        } 
     }
 }
