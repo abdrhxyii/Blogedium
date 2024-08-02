@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -8,11 +9,18 @@ import { Component, Input } from '@angular/core';
   styleUrl: './blog.component.css'
 })
 export class BlogComponent {
+  constructor(private route: Router){
+
+  }
   @Input() imageUrl: string = "";
   @Input() title: string = "";
   @Input() description: string = "";
   @Input() date: string = "";
   @Input() reads: number = 0;
   @Input() comments: number = 0;
+
+  handleRoute(){
+    this.route.navigate(['/blogpost'])
+  }
 
 }

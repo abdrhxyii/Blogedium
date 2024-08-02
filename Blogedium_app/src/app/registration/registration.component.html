@@ -1,3 +1,4 @@
+<form [formGroup]="formHandle">
 <div class="min-h-screen flex items-center justify-center bg-white overflow-hidden">
     <div class="sm:w-full sm:max-w-md relative -top-32">
       <h2 class="mt-6 text-center text-3xl md:text-3xl font-extrabold text-gray-900 sm:text-xm">
@@ -13,6 +14,7 @@
             required
             class="appearance-none rounded-md w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline-indigo focus:border-indigo-500"
             placeholder="Email address"
+            formControlName="emailaddress"
           />
         </div>
   
@@ -24,6 +26,7 @@
             required
             class="appearance-none rounded-md w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline-indigo focus:border-indigo-500"
             placeholder="Password"
+            formControlName="password"
           />
         </div>
   
@@ -48,4 +51,5 @@
       </p>
     </div>
   </div>
+</form>
   

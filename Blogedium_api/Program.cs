@@ -17,6 +17,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     });
 
 var configuration = builder.Configuration;
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 // db connection configurations
 var connectionString = builder.Configuration.GetConnectionString("DefaultValue");
@@ -24,6 +25,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultValue")
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(connectionString));
 
+// cors config
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("myAppCors", policy =>
+    {
+        policy.WithOrigins(allowedOrigin)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
 // jwt configuration
 builder.Services.AddAuthentication(options =>
 {
@@ -73,6 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("myAppCors");
 
 app.UseHttpsRedirection();
 
@@ -80,5 +92,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();
