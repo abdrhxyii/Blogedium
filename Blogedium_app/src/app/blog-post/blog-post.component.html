@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+<div class="m-2.5 lg:m-14 mt-20 md:mt-16">
+    <div class="lg:w-full">
+      <img class="rounded-lg lg:w-full" src='../../assets/dotnet.png' alt="" />
+    </div>
+    <div class="mt-5">
+      <p class="text-sm text-gray-500">Written by Admin</p>
+      <p class="text-sm text-gray-500">{{ DateFormterring('2024-08-01T12:34:56Z') }}</p>
+    </div>
+    <div class="mt-5">
+      <p>This is a hardcoded description of the blog post.</p>
+    </div>
+    <div class="mt-5">
+      <h5 class="text-lg font-extrabold">Comments</h5>
+      <div class="mt-4 space-y-4">
+        @for (comment of comments; track comment.id){
+            <div class="bg-white p-4 shadow rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                  <h6 class="text-md font-semibold">{{ comment.first_name + ' ' + comment.last_name }}</h6>
+                  <span class="text-sm text-gray-500">
+                    {{ DateFormterring(comment.createdAt) }}
+                  </span>
+                </div>
+                <p class="text-gray-700">{{ comment.comment_des }}</p>
+              </div>
+        }
+      </div>
+    </div>
+    <div class="mt-5">
+      <h5 class="text-lg font-extrabold">Add Comment</h5>
+      <div class="mt-4 space-y-4 bg-white p-4 shadow rounded-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            [(ngModel)]="input.first_name"
+            (input)="handleFieldTriggers($event)"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            [(ngModel)]="input.last_name"
+            (input)="handleFieldTriggers($event)"
+            class="w-full p-2 border border-gray-300 rounded-lg"
+          />
+        </div>
+        <textarea
+          name="comment_des"
+          placeholder="Comment"
+          [(ngModel)]="input.comment_des"
+          (input)="handleFieldTriggers($event)"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+        ></textarea>
+        <button (click)="handleCommentSubmit()" class="px-4 py-2 bg-black text-white rounded-lg">
+          Add Comment
+        </button>
+      </div>
+    </div>
+  </div>
+  

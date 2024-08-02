@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -14,6 +14,12 @@ import { RouterLink } from '@angular/router';
 })
 export class NavbarComponent {
   isSidebarOpen = false;
+  constructor(private route: Router){
+  }
+
+  ngOnInit(){
+    console.log(this.route.url, "url")
+  }
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -22,5 +28,7 @@ export class NavbarComponent {
   closeSidebar() {
     this.isSidebarOpen = false;
   }
+
+
 
 }
