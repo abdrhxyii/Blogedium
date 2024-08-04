@@ -1,14 +1,14 @@
 <app-navbar></app-navbar>
-<div class="m-2.5 lg:m-14 mt-20 md:mt-16">
+<div class="m-2.5 lg:m-20 mt-20 md:mt-16">
     <div class="lg:w-full">
-      <img class="rounded-lg lg:w-full" src='../../assets/dotnet.png' alt="" />
+      <img class="rounded-lg lg:w-full h-450px" [src]='imageUrl' alt="" />
     </div>
     <div class="mt-5">
       <p class="text-sm text-gray-500">Written by Admin</p>
       <p class="text-sm text-gray-500">{{ DateFormterring('2024-08-01T12:34:56Z') }}</p>
     </div>
     <div class="mt-5">
-      <p>This is a hardcoded description of the blog post.</p>
+      <p>{{content}}</p>
     </div>
     <div class="mt-5">
       <h5 class="text-lg font-extrabold">Comments</h5>

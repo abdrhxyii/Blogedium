@@ -18,9 +18,10 @@ export class BlogComponent {
   @Input() date: any = "";
   @Input() reads: number = 0;
   @Input() comments: number = 0;
+  @Input() id: string = "";
 
   handleRoute(){
-    this.route.navigate(['/blogpost'])
+    this.route.navigate(["/blogpost"], { queryParams: {id: this.id}})
   }
 
 }

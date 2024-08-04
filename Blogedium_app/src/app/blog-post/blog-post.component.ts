@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { DataService } from '../data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-post',
@@ -13,11 +15,29 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './blog-post.component.css'
 })
 export class BlogPostComponent {
+  id: number;
+  imageUrl: string;
+  content: string;
   blogdetails = {
     image: '../../assets/dotnet.png',
     createdAt: '2024-08-01T12:34:56Z',
     description: 'This is a hardcoded description of the blog post.',
   };
+  constructor(private database: DataService, private routes: ActivatedRoute){
+    this.routes.queryParams.subscribe((data: any) => {
+      this.id = data.id
+      console.log(data.id, "params qu")
+      this.getBlogs(this.id)
+    })
+  }
+
+  getBlogs(id: number){
+    this.database.get(`blog/${id}`).subscribe((data: any) => {
+      this.imageUrl = data.Image
+      this.content = data.Content
+      console.log(data)
+    })
+  }
 
   comments = [
     {
