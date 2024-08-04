@@ -15,7 +15,7 @@ export class BlogComponent {
   @Input() imageUrl: string = "";
   @Input() title: string = "";
   @Input() description: string = "";
-  @Input() date: string = "";
+  @Input() date: any = "";
   @Input() reads: number = 0;
   @Input() comments: number = 0;
 

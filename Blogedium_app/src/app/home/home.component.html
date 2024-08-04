@@ -1,14 +1,14 @@
 <app-navbar></app-navbar>
 <div class="m-3 mt-20 md:mt-16">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-  @for (blog of blogPosts; track blog.id) {
+  @for (blog of blogPosts; track blog.Id) {
     <app-blog 
-      [title]="blog.title" 
-      [imageUrl]="blog.imageUrl" 
-      [description]="blog.description" 
-      [reads]="blog.reads" 
-      [comments]="blog.comments"
-      [date]="blog.date"
+      [title]="truncateTitle(blog.Title)" 
+      [imageUrl]="blog.Image" 
+      [description]="truncateContent(blog.Content)" 
+      [reads]="10" 
+      [comments]="12"
+      [date]="20/04/2024"
       >
     </app-blog>
   }

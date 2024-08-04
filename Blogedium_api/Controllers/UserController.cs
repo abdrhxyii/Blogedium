@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using BCrypt.Net;
+using System.Net;
 
 namespace Blogedium_api.Controllers
 {
@@ -68,7 +69,7 @@ namespace Blogedium_api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
  
