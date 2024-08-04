@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class DataService {
   }
 
   get(url: string){
-    return this.http.get(url, {
+    return this.http.get(`${environment.baseurl}/${url}`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`
       })
@@ -21,7 +23,7 @@ export class DataService {
   }
 
   post(url: string, body: any){
-    return this.http.post(url, body, {
+    return this.http.post(`${environment.baseurl}/${url}`, body, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`
       })
@@ -29,7 +31,7 @@ export class DataService {
   }
 
   update(url: string, body: string){
-    return this.http.put(url, body, {
+    return this.http.put(`${environment.baseurl}/${url}`, body, {
       headers: new HttpHeaders({
         "Authorization": `Bearer ${this.token}`
       })
@@ -37,7 +39,7 @@ export class DataService {
   }
 
   delete(url: string){
-    return this.http.delete(url, {
+    return this.http.delete(`${environment.baseurl}/${url}`, {
       headers: new HttpHeaders({
         "Authorization": `Bearer ${this.token}`
       })
