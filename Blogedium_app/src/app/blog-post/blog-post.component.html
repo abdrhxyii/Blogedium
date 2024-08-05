@@ -13,51 +13,57 @@
     <div class="mt-5">
       <h5 class="text-lg font-extrabold">Comments</h5>
       <div class="mt-4 space-y-4">
-        @for (comment of comments; track comment.id){
+        @for (comment of comments; track comment.Id){
             <div class="bg-white p-4 shadow rounded-lg">
                 <div class="flex justify-between items-center mb-2">
-                  <h6 class="text-md font-semibold">{{ comment.first_name + ' ' + comment.last_name }}</h6>
+                  <h6 class="text-md font-semibold">{{ comment.FirstName + ' ' + comment.LastName }}</h6>
                   <span class="text-sm text-gray-500">
-                    {{ DateFormterring(comment.createdAt) }}
+                    {{ null }}
                   </span>
                 </div>
-                <p class="text-gray-700">{{ comment.comment_des }}</p>
+                <p class="text-gray-700">{{ comment.CommentContent }}</p>
               </div>
         }
       </div>
     </div>
     <div class="mt-5">
       <h5 class="text-lg font-extrabold">Add Comment</h5>
+      <form  [formGroup]="commentForm" (ngSubmit)="handleCommentSubmit()">
       <div class="mt-4 space-y-4 bg-white p-4 shadow rounded-lg">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <input
             type="text"
-            name="first_name"
+            name="firstname"
             placeholder="First Name"
-            [(ngModel)]="input.first_name"
-            (input)="handleFieldTriggers($event)"
             class="w-full p-2 border border-gray-300 rounded-lg"
+            formControlName="firstname"
           />
           <input
             type="text"
-            name="last_name"
+            name="lastname"
             placeholder="Last Name"
-            [(ngModel)]="input.last_name"
-            (input)="handleFieldTriggers($event)"
+            formControlName="lastname"
             class="w-full p-2 border border-gray-300 rounded-lg"
           />
         </div>
         <textarea
-          name="comment_des"
+          name="commentcontent"
           placeholder="Comment"
-          [(ngModel)]="input.comment_des"
-          (input)="handleFieldTriggers($event)"
+          formControlName="commentcontent"
           class="w-full p-2 border border-gray-300 rounded-lg"
         ></textarea>
-        <button (click)="handleCommentSubmit()" class="px-4 py-2 bg-black text-white rounded-lg">
+        <button class="px-4 py-2 bg-black text-white rounded-lg">
           Add Comment
         </button>
       </div>
+      @if(loading){
+        <div class="spinner-overlay">
+        <p-progressSpinner
+          ariaLabel="loading"
+        ></p-progressSpinner>
+      </div>
+      }
+    </form>
     </div>
   </div>
   
