@@ -65,5 +65,10 @@ namespace Blogedium_api.Services
             }
             throw new NotFoundException($"Blog with '{id}' not found");
         }
+
+        public async Task<BlogModal?> IncrementReadCountAsync(int id)
+        {
+            return await _blogRepository.IncrementReadCount(id);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Blogedium_api.Interfaces.Repository
         Task<BlogModal?> DeleteBlog (int id); 
         Task<BlogModal?> UpdateBlog (int id, BlogModal blogModal);
         Task<BlogModal?> FindById (int id);
+        Task<BlogModal?> IncrementReadCount (int id);
     }
 }

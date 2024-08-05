@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-blog',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './blog.component.css'
 })
 export class BlogComponent {
-  constructor(private route: Router){
+  constructor(private route: Router, private database: DataService){
 
   }
   @Input() imageUrl: string = "";
@@ -21,6 +22,9 @@ export class BlogComponent {
   @Input() id: string = "";
 
   handleRoute(){
+    this.database.post(`blog/${this.id}/read`, {}).subscribe((data: any) => {
+      console.log('Read count incremented');
+    })
     this.route.navigate(["/blogpost"], { queryParams: {id: this.id}})
   }
 

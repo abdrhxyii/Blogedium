@@ -1,14 +1,19 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
 <nav class="bg-gray-800 p-4 fixed top-0 inset-x-0 z-50">
   <div class="container mx-auto flex justify-between items-center">
     <div class="text-white text-lg font-bold">Blogedium <i class="pi pi-spin pi-cog" style="font-size: 1rem"></i>
 
     </div>
     <div class="hidden md:flex space-x-4">
-      <a routerLink="/" class="text-gray-300 hover:text-white">Home</a>
-      <a routerLink="/protectedadmin" class="text-gray-300 hover:text-white">Admin</a>
-      <!-- <a href="#" class="text-gray-300 hover:text-white">Category</a> -->
-      <a routerLink="/login" class="text-gray-300 hover:text-white">Login/Signup</a>
-      <a routerLink="" class="text-gray-300 hover:text-white">Logout <i class="pi pi-sign-out" style="font-size: 1rem"></i></a>
+      <a routerLink="/" class="text-gray-300 hover:text-white cursor-pointer">Home</a>
+      <!-- <a routerLink="/protectedadmin" class="text-gray-300 hover:text-white">Admin</a> -->
+      @if(loggedIn){
+        <a (click)="confirmLogout()" class="text-gray-300 hover:text-white cursor-pointer">Logout</a>
+      } @else {
+        <a routerLink="/login" class="text-gray-300 hover:text-white cursor-pointer">Login/Signup</a>
+      }
     </div>
     <div class="md:hidden">
       <button (click)="toggleSidebar()" class="text-gray-300 focus:outline-none">
@@ -32,10 +37,15 @@
           </svg>
         </button>
       </div>
-      <a routerLink="/" class="block text-gray-300 hover:text-white mb-2">Home</a>
-      <a routerLink="/protectedadmin" class="block text-gray-300 hover:text-white mb-2">Admin</a>
+      <a routerLink="/" class="block cursor-pointer text-gray-300 hover:text-white mb-2">Home</a>
+      <!-- <a routerLink="/protectedadmin" class="block text-gray-300 hover:text-white mb-2">Admin</a> -->
       <!-- <a href="#" class="block text-gray-300 hover:text-white mb-2">Category</a> -->
-      <a routerLink="/login" class="block text-gray-300 hover:text-white mb-2">Login/Signup</a>
+      @if(loggedIn){
+        <a (click)="confirmLogout()" class="text-gray-300 hover:text-white cursor-pointer">Logout</a>
+      } @else {
+        <a routerLink="/login" class="text-gray-300 hover:text-white cursor-pointer">Login/Signup</a>
+      }
     </div>
   </div>
+
 </div>

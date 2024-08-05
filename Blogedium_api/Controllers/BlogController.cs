@@ -38,6 +38,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet("{id}")]
         public async Task<ActionResult<BlogModal>> GetBlogById (int id)
         {
@@ -57,6 +58,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<BlogModal>>> GetAllBlogs ()
         {
@@ -71,6 +73,7 @@ namespace Blogedium_api.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<BlogModal>> DeleteBlog (int id)
         {
@@ -106,5 +109,13 @@ namespace Blogedium_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost("{id}/read")]
+        public async Task<ActionResult<BlogModal>> CountReact (int id)
+        {
+            await _blogService.IncrementReadCountAsync(id);
+            return Ok();
+        }
+
     }
 }

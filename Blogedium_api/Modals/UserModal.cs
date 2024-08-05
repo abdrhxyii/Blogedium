@@ -21,7 +21,6 @@ namespace Blogedium_api.Modals
         [EnumDataType(typeof(UserRole))]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRole Role { get; set; } = UserRole.User; // Default role set to User
-
         // Empty constructor required by EF Core for migrations and queries
         public UserModal() {}
     }
