@@ -44,6 +44,7 @@ export class RegistrationComponent {
         this.loading = false
         this.messageService.add({severity: 'success', summary: 'Success', detail: 'Login successful!'});
         localStorage.setItem("token", data.token)
+        localStorage.setItem("loggedin", JSON.stringify(true))
         this.route.navigate([""])
       }, error => {
         this.loading = false

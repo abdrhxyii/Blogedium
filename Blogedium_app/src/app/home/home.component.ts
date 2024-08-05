@@ -2,22 +2,26 @@ import { Component } from '@angular/core';
 import { BlogComponent } from '../blog/blog.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { DataService } from '../data.service';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     BlogComponent,
-    NavbarComponent
+    NavbarComponent,
+    SkeletonModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   blogPosts: any[] = [];
+  loading: boolean = true;
   constructor(private database: DataService){
     this.database.get("blog").subscribe((data: any)=> {
       this.blogPosts = data
+      this.loading = false
       console.log(this.blogPosts)
     })
   }
@@ -40,25 +44,9 @@ export class HomeComponent {
     return title;
   }
 
-  // blogPosts = [
-  //   {
-  //     id: 1,
-  //     imageUrl: '../../assets/dotnet.png',
-  //     title: 'Blog Post 1',
-  //     description: 'This is a description for Blog Post 1.',
-  //     date: '2024-07-21',
-  //     reads: 120,
-  //     comments: 15
-  //   },
-  //   {
-  //     id: 2,
-  //     imageUrl: '../../assets/dotnet.png',
-  //     title: 'Blog Post 2',
-  //     description: 'This is a description for Blog Post 2.',
-  //     date: '2024-07-22',
-  //     reads: 200,
-  //     comments: 25
-  //   }
-  // ];
+  trackById(index: number, item: any): number {
+    return item.Id;
+  }
+  
 
 }

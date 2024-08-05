@@ -19,7 +19,7 @@ namespace Blogedium_api.Modals
 
         // Navigation property for comments
         public ICollection<CommentModal> Comments { get; set; }
-
+        public int ReadCount { get; set; } = 0;
         public BlogModal()
         {
             Comments = new List<CommentModal>();

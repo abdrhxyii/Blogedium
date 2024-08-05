@@ -60,6 +60,16 @@ namespace Blogedium_api.Repositories
             var blog = await _context.Blogs.FindAsync(id);
             return blog;
         }
+
+        public async Task<BlogModal?> IncrementReadCount (int id)
+        {
+            var blog = await _context.Blogs.FindAsync(id);
+            if(blog != null){
+                blog.ReadCount = blog.ReadCount + 1;
+                await _context.SaveChangesAsync();
+            }
+            return blog;
+        }
  
     }
 }

@@ -9,5 +9,7 @@ namespace Blogedium_api.Interfaces.Services
         Task<BlogModal?> GetBlogAsync (int id);
         Task<BlogModal> DeleteBlogAsync (int id); 
         Task<BlogModal> UpdateBlogAsync (int id, BlogModal blogModal); 
+        Task<BlogModal?> IncrementReadCountAsync (int id); 
+        // IncrementReadCountAsync
     }
 }
