@@ -23,12 +23,12 @@ namespace Blogedium_api.Repositories
 
         public async Task<IEnumerable<BlogModal>> GetAll ()
         {
-            return await _context.Blogs.ToListAsync();
+            return await _context.Blogs.Include(b => b.Comments).ToListAsync();
         }
 
         public async Task<BlogModal?> GetBlog (int id)
         {
-            return await _context.Blogs.FindAsync(id);
+            return await _context.Blogs.Include(b => b.Comments).FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task<BlogModal?> DeleteBlog (int id)
